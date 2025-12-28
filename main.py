@@ -124,6 +124,8 @@ def write_map_js(config):
             file.write(js_var)
             file.write("() })\n")
             file.write("  .bindPopup(\n    '")
+            file.write(config_i["title"])
+            file.write(" - ")
             file.write(config_i["text"])
             file.write(" - ")
             file.write(config_i["author"])
