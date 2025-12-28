@@ -37,3 +37,16 @@
   author: Place-holder
   text: NASA is looked after by owoClap
   type: International
+
+- file: Commonlove.webp
+  title: Common Love
+  author: LeanFries
+  text: Common Love
+  type: International
+
+- file: OliRSA.webp
+  title: Olivia\'s Republic of South Africa
+  author: LeanFries
+  text: Olivia\'s Republic of South Africa
+  type: Africa
+  coordinates: [-30.5595, 22.9375]
