@@ -1,0 +1,39 @@
+- file: GBR0.webp
+  title: Queen Monroe II
+  author: Place-holder
+  text: Queen Monroe II ruled the country of Great Britain from 1946 to 1953
+  type: Europe
+  coordinates: [51.5072, -0.1276]
+
+- file: NED0.webp
+  title: Queen Saotome VI
+  author: Place-holder
+  text: Queen Saotome VI has been in war for 5 years with the United States.
+        Legends has it she mounts on a Shibe.
+  type: Europe
+  coordinates: [52.1326, 5.2913]
+
+- file: DEN0.webp
+  title: Denmark for the lols
+  author: Place-holder
+  text: Denmark and Sweden are still at it again
+  type: Europe
+  coordinates: [56.2639, 9.5018]
+
+- file: INT0.webp
+  title: United Nations of Monroe
+  author: Place-holder
+  text: Olivia Monroe united the nations
+  type: International
+
+- file: INT1.webp
+  title: United States of Socks
+  author: Place-holder
+  text: Each state is governed by a sock
+  type: International
+
+- file: INT2.webp
+  title: NASA
+  author: Place-holder
+  text: NASA is looked after by owoClap
+  type: International
