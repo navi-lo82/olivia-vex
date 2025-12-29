@@ -41,12 +41,35 @@
 - file: Commonlove.webp
   title: Common Love
   author: LeanFries
-  text: Common Love
+  text: Flag representing an international association of 56 countries united
+        by their shared history and love for Olivia Monroe
   type: International
 
 - file: OliRSA.webp
-  title: Olivia\'s Republic of South Africa
+  title: Oligarchy of South Africa
   author: LeanFries
-  text: Olivia\'s Republic of South Africa
+  text: Oligarchy of South Africa
   type: Africa
-  coordinates: [-30.5595, 22.9375]
+  coordinates: [-33.9221, 18.4231]
+
+- file: oliun1v22.webp
+  title: United Olivians
+  author: Relishes
+  text: Centre of the world? The North Pole? Paaaah! We know where it is!
+  type: International
+
+- file: theoliviarampant.webp
+  title: The Olivia Rampant
+  author: Relishes
+  text: Our happy girl shows off her feisty side - Rampant, with hot pink
+        stiletto nails, and shreds
+  type: Europe
+  coordinates: [55.066667, -6.000000]
+
+- file: navi_ioc.webp
+  title: International Olivia Committee
+  author: Navi
+  text: Every four years, ballet is the main event at the Olimpics. Officially,
+        this is held at the Olisseum, but some say the grand finals are held in
+        a \"dungeon\" deep underground
+  type: International
