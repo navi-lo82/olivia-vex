@@ -82,3 +82,14 @@
         supposed to take care of 15 kids?
   type: Asia
   coordinates: [37.887389, 41.132222]
+
+- file: navi_oli_hood.webp
+  title: Olivia Hood of Sherwood Forest
+  author: Navi
+  text: Legend has it that on Valentine\'s Day, Olivia Hood of Sherwood Forest
+        stalks the woods in secret, marking unsuspecting single men with scented
+        love arrows. Once struck, they are not claimed at once, but patiently
+        savoured for a later time. Sherwood Forest is now a legendary attraction
+        - particularly among the brave, the curious... and the single
+  type: Europe
+  coordinates: [53.207797736055355, -1.0844425546456038]
