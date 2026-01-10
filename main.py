@@ -124,9 +124,11 @@ def write_map_js(config):
             file.write(js_var)
             file.write("() })\n")
             file.write("  .bindPopup(\n    '")
+            file.write("<b>")
             file.write(config_i["title"])
-            file.write(" - ")
+            file.write("</b><br><br>")
             file.write(config_i["text"])
+            file.write("<br><br>")
             file.write(" - ")
             file.write(config_i["author"])
             file.write("'\n  ).addTo(map);\n\n")
@@ -146,7 +148,7 @@ def write_gallery_js(config):
             f'<div class="w3-container w3-white">\n'
             f"<p><b>{config_i['title']}</b></p>\n"
             f"<p>{config_i['text']}</p>\n"
-            f"<p><b>-{config_i['author']}</b></p>\n"
+            f"<p><b>- {config_i['author']}</b></p>\n"
             "</div>\n</div>\n"
         )
         html_dict[type].append(html)
