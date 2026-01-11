@@ -1,3 +1,34 @@
+"""Auto generate `js` code and assets for displaying flags in `index.html`
+
+Auto generate `js` code and assets for displaying flags in `index.html` by
+reading flag images in the `ASSETS_DIR` directory and the config file
+`CONFIG_FILE`
+
+The config file has information about each flag as a list. For each flag, it
+should have the following keys:
+
+- `file`: The file name of the flag image in the `ASSETS_DIR` directory
+- `title`: The title of the flag, ensure it is js friendly by using escape
+      characters when needed
+- `author`: The author of the flag, ensure it is js friendly by using escape
+      characters when needed
+- `text`: The text of the flag, ensure it is js friendly by using escape
+      characters when needed
+- `type`: The type of the flag - "International", "Europe", "North America",
+      "South America", "Africa", "Asia" or "Oceania"
+- `coordinates`: The coordinates of the flag if it is not an international flag
+
+For each international flag, a random coordinate within the shape of
+`INTERNATIONAL_GEOMETRY_FILE` are added
+
+For each flag, each flag is resized to an approriate size for the web. Also
+another image is made by adding a flag pole to the resized flag. These images
+are saved in the `ASSETS_DIR` directory
+
+The js code for displaying flags in `index.html` is also generated using the
+modified images in the `ASSETS_DIR` directory
+"""
+
 from os import path
 
 import PIL.Image
@@ -23,13 +54,37 @@ GALLERY_JS_FILE = "gallery.js"
 ASSETS_DIR = "assets"
 
 
+def read_config():
+    """Read the config file of flags
+
+    Read the config file of flags and return a dictionary of flag configs
+
+    Returns:
+        dict: Dictionary of flag configs
+    """
+    with open(CONFIG_FILE, "r") as file:
+        return yaml.safe_load(file)
+
+
 def add_international_cood(config, rng):
+    """Add random coordinate for international flags
+
+    Add random coordinates for every international flag in config. Coordinates
+    are sampled from a geometry file. The coordinates are saved for each config
+    with the key "coordinates"
+
+    Args:
+        config (dict): Dictionary of flag configs. Each international flag in
+            this dictionary is modified
+        rng (numpy.random._generator.Generator): random number generated
+    """
     gdf = gpd.read_file(INTERNATIONAL_GEOMETRY_FILE)
     gdf = gdf.to_crs("EPSG:4326")
 
     polygon = gdf.geometry.iloc[0]
 
     for config_i in config:
+        # check if it is a international flag
         if config_i["type"] != "International":
             continue
 
@@ -47,50 +102,83 @@ def add_international_cood(config, rng):
                 break
 
 
-def read_config():
-    with open(CONFIG_FILE, "r") as file:
-        return yaml.safe_load(file)
-
-
 def resize_images(config):
+    """Resize every flag in the config
+
+    Resize every flag in the config and save them in the assets. For each flag,
+    the location of the resized images are also saved in the config using the
+    key "resize-file"
+
+    Args:
+        config (dict): Dictionary of flag configs. Each flag in this dictionary
+            is modified
+    """
     for config_i in config:
         flag_file = config_i["file"]
         img = PIL.Image.open(path.join(ASSETS_DIR, flag_file))
 
+        # resize, keeping the ratio
         scale = RESIZE_WIDTH / img.width
         resize_height = int(img.height * scale)
         img = img.resize((RESIZE_WIDTH, resize_height), PIL.Image.LANCZOS)
 
-        resize_file = flag_file.split(".")[0]
-        resize_file = f"{resize_file}-resize.webp"
+        resize_file = flag_file.split(".")[0]  # remove the file extension
+        resize_file = f"{resize_file}-resize.webp"  # append to file name
         config_i["resize-file"] = resize_file
         img.save(path.join(ASSETS_DIR, resize_file))
 
 
 def add_flag_pole(config):
+    """Add a flag pole to each flag in the config
+
+    Add a flag pole to each resized flag in the config and save them in the
+    assets. For each flag, the location of the flags with a pole are also saved
+    in the config using the key "pole-file"
+
+    Requires the function `resize_images(config)` to be run beforehand
+
+    Args:
+        config (dict): Dictionary of flag configs. Each flag in this dictionary
+            is modified
+    """
     for config_i in config:
-        flag_file = config_i["resize-file"]
+        # file name of the flag with pole
         pole_file = f"{config_i['file'].split('.')[0]}-pole.webp"
         config_i["pole-file"] = pole_file
 
-        img = PIL.Image.open(path.join(ASSETS_DIR, flag_file))
+        # use the resized flag
+        img = PIL.Image.open(path.join(ASSETS_DIR, config_i["resize-file"]))
 
+        # create blank transparent image
         new_width = img.width + FLAG_POLE_WIDTH
         new_img = PIL.Image.new(
             "RGBA", (new_width, FLAG_POLE_HEIGHT), (0, 0, 0, 0)
         )
 
-        # Paste the original image next to the flag pole
+        # paste the original image next to the flag pole
         new_img.paste(img, (FLAG_POLE_WIDTH, 0))
         draw = PIL.ImageDraw.Draw(new_img)
         draw.rectangle([0, 0, FLAG_POLE_WIDTH, FLAG_POLE_HEIGHT], POLE_COLOUR)
 
-        # Save the result
+        # save the result
         new_img.save(path.join(ASSETS_DIR, pole_file))
 
 
 def write_map_js(config):
+    """Auto generate the `MAP_JS_FILE` file
+
+    Auto generate the `MAP_JS_FILE` file which displays the Leaflet map with
+    flags. It adds the flag (with poles) to the map and a pop up displaying the
+    title, text and author
+
+    Requires the functions `resize_images(config)`, `add_flag_pole(config)` and
+    `add_international_cood(config)` to be run beforehand
+
+    Args:
+        config (dict): Dictionary of flag configs
+    """
     with open(MAP_JS_FILE, "w") as file:
+        # js code for Leaflet
         file.write(
             f"const map = L.map('map').setView({START_COOD}, {START_ZOOM});\n"
         )
@@ -105,6 +193,7 @@ def write_map_js(config):
         )
         file.write("}).addTo(map);\n\n")
 
+        # for each flag, add a pop up
         for config_i in config:
             js_var = config_i["file"].split(".")[0]
             flag_file = config_i["pole-file"]
@@ -119,6 +208,7 @@ def write_map_js(config):
             )
             file.write("  }\n});\n")
 
+            # put html code within bindPopup
             file.write(f"L.marker({config_i['coordinates']},\n")
             file.write("  { icon: new ")
             file.write(js_var)
@@ -135,12 +225,28 @@ def write_map_js(config):
 
 
 def write_gallery_js(config):
+    """Auto generate the `GALLERY_JS_FILE` file
+
+    Auto generate the `GALLERY_JS_FILE` file which inserts html code for
+    displaying flags in `index.html`
+
+    Requires the function `resize_images(config)` to be run beforehand
+
+    Args:
+        config (dict): Dictionary of flag configs
+    """
+    # create a dictionary of flag types, eg "International", "Europe"
     html_dict = {}
+
+    # for each flag
     for config_i in config:
+        # check if this type of flag is in html_dict, if it isn't add it
+        # modify the string to make it consistent with the html class names
         type = config_i["type"].lower().replace(" ", "-")
         if type not in html_dict:
-            html_dict[type] = []
+            html_dict[type] = []  # empty list, for appending flag html code
 
+        # html code for displaying this flag
         html = (
             f'<div class="w3-third w3-container w3-margin-bottom">\n'
             f'<img src="{path.join(ASSETS_DIR, config_i["resize-file"])}" '
@@ -153,6 +259,7 @@ def write_gallery_js(config):
         )
         html_dict[type].append(html)
 
+    # write js code
     with open(GALLERY_JS_FILE, "w") as file:
         for type in html_dict:
             file.write(f'document.getElementById("{type}").innerHTML = \n')
@@ -163,6 +270,7 @@ def write_gallery_js(config):
 
 
 if __name__ == "__main__":
+    # use rng to suffle the flag entries in random order
     rng = random.default_rng(SEED)
     config = read_config()
     resize_images(config)
