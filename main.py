@@ -1,13 +1,10 @@
-"""Auto generate `js` code and assets for displaying flags in `index.html`
+"""Generate the `html`code, `js` code and assets for the flag website
 
-Auto generate `js` code and assets for displaying flags in `index.html` by
-reading flag images in the `ASSETS_DIR` directory and the config file
-`CONFIG_FILE`
+Provide submitted flags in the `SUBMISSIONS_DIR` directory along with
+information about each flag in the `CONFIG_FILE`.For each flag, it should have
+the following keys:
 
-The config file has information about each flag as a list. For each flag, it
-should have the following keys:
-
-- `file`: The file name of the flag image in the `ASSETS_DIR` directory
+- `file`: The file name of the flag image in the `SUBMISSIONS_DIR` directory
 - `title`: The title of the flag, ensure it is js friendly by using escape
       characters when needed
 - `author`: The author of the flag, ensure it is js friendly by using escape
@@ -21,37 +18,49 @@ should have the following keys:
 For each international flag, a random coordinate within the shape of
 `INTERNATIONAL_GEOMETRY_FILE` are added
 
-For each flag, each flag is resized to an approriate size for the web. Also
-another image is made by adding a flag pole to the resized flag. These images
-are saved in the `ASSETS_DIR` directory
+This code uses the provided `INDEX_TEMPLATE_FILE` `html` file and modifies it to
+contain images of the flags and the Leaflet map. It will do the following:
 
-The js code for displaying flags in `index.html` is also generated using the
-modified images in the `ASSETS_DIR` directory
+- Generate `INDEX_FILE` `html` file in `HTML_DIR` for the website. This file
+  contains the flags and poles in a Leaflet map. It also contains all of the
+  flags in a gallery format
+- Each flag is resized to an approriate size for the web. Also another image is
+  made by adding a flag pole to the resized flag. These images are saved in the
+  `HTML_DIR/ASSETS_DIR` directory and used by the `INDEX_FILE` `html` file
+- Generate `HTML_DIR/ MAP_JS_FILE` which contains the js code for displaying the
+  Leaflet map in the `INDEX_FILE` `html` file
 """
 
-from os import path
+import os
 
 import PIL.Image
 import PIL.ImageDraw
+import bs4
 import geopandas as gpd
 from shapely import geometry
 from numpy import random
 import yaml
 
-
-SEED = 69951084179381307589558274648595550906
-START_COOD = [28.2956, -81.4039]
-START_ZOOM = 10
-RESIZE_WIDTH = 800
-FLAG_POLE_HEIGHT = 1000
-FLAG_POLE_WIDTH = 30
-ICON_SIZE = [200, 250]
-POLE_COLOUR = (50, 50, 50)
-INTERNATIONAL_GEOMETRY_FILE = path.join("kissimmee", "climitspoly.shp")
+SEED = 69951084179381307589558274648595550906  # for rng
+START_COOD = [28.2956, -81.4039]  # start coordinates for the Leaflet map
+START_ZOOM = 10  # start zoom parameter for the Leaflet map
+RESIZE_WIDTH = 800  # width of the image asset to resize to
+FLAG_POLE_HEIGHT = (
+    1000  # height of the pole in the flag Leaflet image in pixels
+)
+FLAG_POLE_WIDTH = 30  # width of the pole in the flag Leaflet image in pixels
+POLE_COLOUR = (50, 50, 50)  # colour of the pole in RGB
+ICON_SIZE = [200, 250]  # size of the flag in the Leaflet map
+INTERNATIONAL_GEOMETRY_FILE = os.path.join(
+    "kissimmee", "climitspoly.shp"
+)  # file location of the shape of the international land
+INDEX_TEMPLATE_FILE = os.path.join("template", "index.html")
+SUBMISSIONS_DIR = "submissions"
 CONFIG_FILE = "config.yaml"
-MAP_JS_FILE = "map.js"
-GALLERY_JS_FILE = "gallery.js"
+HTML_DIR = "html"
 ASSETS_DIR = "assets"
+INDEX_FILE = "index.html"
+MAP_JS_FILE = "map.js"
 
 
 def read_config():
@@ -115,7 +124,7 @@ def resize_images(config):
     """
     for config_i in config:
         flag_file = config_i["file"]
-        img = PIL.Image.open(path.join(ASSETS_DIR, flag_file))
+        img = PIL.Image.open(os.path.join(SUBMISSIONS_DIR, flag_file))
 
         # resize, keeping the ratio
         scale = RESIZE_WIDTH / img.width
@@ -125,7 +134,7 @@ def resize_images(config):
         resize_file = flag_file.split(".")[0]  # remove the file extension
         resize_file = f"{resize_file}-resize.webp"  # append to file name
         config_i["resize-file"] = resize_file
-        img.save(path.join(ASSETS_DIR, resize_file))
+        img.save(os.path.join(HTML_DIR, ASSETS_DIR, resize_file))
 
 
 def add_flag_pole(config):
@@ -147,7 +156,9 @@ def add_flag_pole(config):
         config_i["pole-file"] = pole_file
 
         # use the resized flag
-        img = PIL.Image.open(path.join(ASSETS_DIR, config_i["resize-file"]))
+        img = PIL.Image.open(
+            os.path.join(HTML_DIR, ASSETS_DIR, config_i["resize-file"])
+        )
 
         # create blank transparent image
         new_width = img.width + FLAG_POLE_WIDTH
@@ -161,7 +172,7 @@ def add_flag_pole(config):
         draw.rectangle([0, 0, FLAG_POLE_WIDTH, FLAG_POLE_HEIGHT], POLE_COLOUR)
 
         # save the result
-        new_img.save(path.join(ASSETS_DIR, pole_file))
+        new_img.save(os.path.join(HTML_DIR, ASSETS_DIR, pole_file))
 
 
 def write_map_js(config):
@@ -177,7 +188,7 @@ def write_map_js(config):
     Args:
         config (dict): Dictionary of flag configs
     """
-    with open(MAP_JS_FILE, "w") as file:
+    with open(os.path.join(HTML_DIR, MAP_JS_FILE), "w") as file:
         # js code for Leaflet
         file.write(
             f"const map = L.map('map').setView({START_COOD}, {START_ZOOM});\n"
@@ -200,7 +211,9 @@ def write_map_js(config):
             file.write(f"const {js_var} = L.Icon.extend(")
             file.write("{\n")
             file.write("  options: {\n")
-            file.write(f"    iconUrl: '{path.join(ASSETS_DIR, flag_file)}',\n")
+            file.write(
+                f"    iconUrl: '{os.path.join(ASSETS_DIR, flag_file)}',\n"
+            )
             file.write(f"    iconSize: {ICON_SIZE},\n")
             file.write(f"    iconAnchor: {[0, ICON_SIZE[1]]},\n")
             file.write(
@@ -224,7 +237,7 @@ def write_map_js(config):
             file.write("'\n  ).addTo(map);\n\n")
 
 
-def write_gallery_js(config):
+def write_index(config):
     """Auto generate the `GALLERY_JS_FILE` file
 
     Auto generate the `GALLERY_JS_FILE` file which inserts html code for
@@ -249,7 +262,7 @@ def write_gallery_js(config):
         # html code for displaying this flag
         html = (
             f'<div class="w3-third w3-container w3-margin-bottom">\n'
-            f'<img src="{path.join(ASSETS_DIR, config_i["resize-file"])}" '
+            f'<img src="{os.path.join(ASSETS_DIR, config_i["resize-file"])}" '
             'style="width:100%">\n'
             f'<div class="w3-container w3-white">\n'
             f"<p><b>{config_i['title']}</b></p>\n"
@@ -259,24 +272,30 @@ def write_gallery_js(config):
         )
         html_dict[type].append(html)
 
-    # write js code
-    with open(GALLERY_JS_FILE, "w") as file:
-        for type in html_dict:
-            file.write(f'document.getElementById("{type}").innerHTML = \n')
-            file.write("`")
-            for html in html_dict[type]:
-                file.write(html)
-            file.write("`;\n")
+    with open(INDEX_TEMPLATE_FILE) as index_template:
+        soup = bs4.BeautifulSoup(index_template, "html.parser")
+
+    for type, html_list in html_dict.items():
+        container = soup.find(id=type)
+        container.clear()
+        for html in html_list:
+            container.append(bs4.BeautifulSoup(html, "html.parser"))
+
+    with open(
+        os.path.join("html", "index.html"), "w", encoding="utf-8"
+    ) as file:
+        file.write(str(soup))
 
 
 if __name__ == "__main__":
     # use rng to suffle the flag entries in random order
     rng = random.default_rng(SEED)
     config = read_config()
+    os.makedirs(os.path.join(HTML_DIR, ASSETS_DIR), exist_ok=True)
     resize_images(config)
     add_flag_pole(config)
     add_international_cood(config, rng)
     rng.shuffle(config)
     write_map_js(config)
     rng.shuffle(config)
-    write_gallery_js(config)
+    write_index(config)
