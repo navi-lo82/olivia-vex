@@ -229,13 +229,17 @@ def write_map_js(config):
             file.write("() })\n")
             file.write("  .bindPopup(\n    '")
             file.write("<b>")
-            file.write(config_i["title"])
+            file.write(add_escape(config_i["title"]))
             file.write("</b><br><br>")
-            file.write(config_i["text"])
+            file.write(add_escape(config_i["text"]))
             file.write("<br><br>")
             file.write(" - ")
-            file.write(config_i["author"])
+            file.write(add_escape(config_i["author"]))
             file.write("'\n  ).addTo(map);\n\n")
+
+
+def add_escape(str):
+    return str.replace("'", "\\'").replace('"', '\\"')
 
 
 def write_index(config):
