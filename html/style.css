@@ -1,8 +1,54 @@
 #map {
   width: 100%;
   margin: 0 auto;
+  border-radius: 10px;
 }
 
 .ballet-pink {
   background-color: #FFCCE7;
+}
+
+.grid {
+  background-color: #FF95CD;
+  border-radius: 14px;
+  column-count: 3;
+  column-gap: 20px;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 1000px) {
+  .grid {
+    column-count: 2;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .grid {
+    column-count: 1;
+  }
+}
+
+.grid figure {
+  display: block;
+  width: 100%;
+  margin: 0 0 20px 0;
+  break-inside: avoid;
+  box-sizing: border-box;
+
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.grid img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.grid figcaption {
+  padding: 15px;
 }

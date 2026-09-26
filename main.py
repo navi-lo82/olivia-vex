@@ -31,6 +31,7 @@ contain images of the flags and the Leaflet map. It will do the following:
   Leaflet map in the `INDEX_FILE` `html` file
 """
 
+import json
 import os
 
 import PIL.Image
@@ -261,14 +262,14 @@ def write_index(config):
 
         # html code for displaying this flag
         html = (
-            f'<div class="w3-third w3-container w3-margin-bottom">\n'
-            f'<img src="{os.path.join(ASSETS_DIR, config_i["resize-file"])}" '
-            'style="width:100%">\n'
-            f'<div class="w3-container w3-white">\n'
-            f"<p><b>{config_i['title']}</b></p>\n"
+            f"<figure>\n"
+            f'<img src="{os.path.join(ASSETS_DIR, config_i["resize-file"])}"> '
+            "\n"
+            f"<figcaption>\n"
+            f"<p><h4>{config_i['title']}</h4></p>\n"
             f"<p>{config_i['text']}</p>\n"
             f"<p><b>- {config_i['author']}</b></p>\n"
-            "</div>\n</div>\n"
+            "</figcaption>\n</figure>\n"
         )
         html_dict[type].append(html)
 
