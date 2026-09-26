@@ -205,6 +205,8 @@ def write_map_js(config):
         )
         file.write("}).addTo(map);\n\n")
 
+        file.write("map.addControl(new L.Control.FullScreen());\n")
+
         # for each flag, add a pop up
         for config_i in config:
             js_var = config_i["file"].split(".")[0]
