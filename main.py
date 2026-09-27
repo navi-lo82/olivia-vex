@@ -31,12 +31,12 @@ contain images of the flags and the Leaflet map. It will do the following:
   Leaflet map in the `INDEX_FILE` `html` file
 """
 
-import json
 import os
 
 import PIL.Image
 import PIL.ImageDraw
 import bs4
+import bs4.formatter
 import geopandas as gpd
 from shapely import geometry
 from numpy import random
@@ -288,10 +288,14 @@ def write_index(config):
         for html in html_list:
             container.append(bs4.BeautifulSoup(html, "html.parser"))
 
+    # required to remove trailing slashes
+    html5_strict = bs4.formatter.HTMLFormatter(void_element_close_prefix=None)
+    html = soup.decode(formatter=html5_strict)
+
     with open(
         os.path.join("html", "index.html"), "w", encoding="utf-8"
     ) as file:
-        file.write(str(soup))
+        file.write(html)
 
 
 if __name__ == "__main__":
