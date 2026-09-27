@@ -62,6 +62,15 @@ HTML_DIR = "html"
 ASSETS_DIR = "assets"
 INDEX_FILE = "index.html"
 MAP_JS_FILE = "map.js"
+FLAG_TYPES = [
+    "International",
+    "Europe",
+    "North America",
+    "South America",
+    "Africa",
+    "Asia",
+    "Oceania",
+]
 
 
 def read_config():
@@ -244,6 +253,10 @@ def add_escape(str):
     return str.replace("'", "\\'").replace('"', '\\"')
 
 
+def flag_type_to_id(flag):
+    return flag.lower().replace(" ", "-")
+
+
 def write_index(config):
     """Auto generate the `GALLERY_JS_FILE` file
 
@@ -258,11 +271,13 @@ def write_index(config):
     # create a dictionary of flag types, eg "International", "Europe"
     html_dict = {}
 
+    flag_types_id = [flag_type_to_id(type) for type in FLAG_TYPES]
+
     # for each flag
     for config_i in config:
         # check if this type of flag is in html_dict, if it isn't add it
         # modify the string to make it consistent with the html class names
-        type = config_i["type"].lower().replace(" ", "-")
+        type = flag_type_to_id(config_i["type"])
         if type not in html_dict:
             html_dict[type] = []  # empty list, for appending flag html code
 
@@ -272,9 +287,9 @@ def write_index(config):
             f'<img src="{os.path.join(ASSETS_DIR, config_i["resize-file"])}"> '
             "\n"
             f"<figcaption>\n"
-            f"<p><h4>{config_i['title']}</h4></p>\n"
-            f"<p>{config_i['text']}</p>\n"
-            f"<p><b>- {config_i['author']}</b></p>\n"
+            f"<strong>{config_i['title']}</strong>\n"
+            f"<p class='caption'>{config_i['text']}</p>\n"
+            f"<p class='author'>- {config_i['author']}</p>\n"
             "</figcaption>\n</figure>\n"
         )
         html_dict[type].append(html)
@@ -283,10 +298,15 @@ def write_index(config):
         soup = bs4.BeautifulSoup(index_template, "html.parser")
 
     for type, html_list in html_dict.items():
-        container = soup.find(id=type)
+        container = soup.find(id=type).find(class_="grid")
         container.clear()
         for html in html_list:
             container.append(bs4.BeautifulSoup(html, "html.parser"))
+
+    # remove un-used flag types
+    for flag_type_id in flag_types_id:
+        if flag_type_id not in html_dict:
+            soup.find(id=flag_type_id).decompose()
 
     # required to remove trailing slashes
     html5_strict = bs4.formatter.HTMLFormatter(void_element_close_prefix=None)
