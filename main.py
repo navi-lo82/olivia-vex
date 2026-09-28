@@ -239,13 +239,17 @@ def write_map_js(config):
             file.write(js_var)
             file.write("() })\n")
             file.write("  .bindPopup(\n    '")
-            file.write("<b>")
+            file.write('<div class="leaflet-custom-container">')
+            file.write("<strong>")
             file.write(add_escape(config_i["title"]))
-            file.write("</b><br><br>")
+            file.write("</strong>")
+            file.write('<p class="leaflet-custom-caption">')
             file.write(add_escape(config_i["text"]))
-            file.write("<br><br>")
-            file.write(" - ")
+            file.write("</p>")
+            file.write('<p class="leaflet-custom-author">')
             file.write(add_escape(config_i["author"]))
+            file.write("</p>")
+            file.write("</div>")
             file.write("'\n  ).addTo(map);\n\n")
 
 
@@ -289,7 +293,7 @@ def write_index(config):
             f"<figcaption>\n"
             f"<strong>{config_i['title']}</strong>\n"
             f"<p class='caption'>{config_i['text']}</p>\n"
-            f"<p class='author'>- {config_i['author']}</p>\n"
+            f"<p class='author'>{config_i['author']}</p>\n"
             "</figcaption>\n</figure>\n"
         )
         html_dict[type].append(html)
