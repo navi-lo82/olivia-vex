@@ -76,14 +76,20 @@ FLAG_TYPES = [
 def read_config():
     """Read the config file of flags
 
-    Read the config file of flags and return a dictionary of flag configs
+    Read the config file of flags and return a dictionary of flag configs. The
+    returned dictionary has the following keys:
+
+    - `file`: The file name of the flag image in the `SUBMISSIONS_DIR` directory
+    - `id`: The file name without the file extension
 
     Returns:
         dict: Dictionary of flag configs
     """
     with open(CONFIG_FILE, "r") as file:
-        return yaml.safe_load(file)
-
+        config = yaml.safe_load(file)
+        for config_i in config:
+            config_i["id"] = config_i["file"].split(".")[0]
+        return config
 
 def add_international_cood(config, rng):
     """Add random coordinate for international flags
@@ -141,8 +147,7 @@ def resize_images(config):
         resize_height = int(img.height * scale)
         img = img.resize((RESIZE_WIDTH, resize_height), PIL.Image.LANCZOS)
 
-        resize_file = flag_file.split(".")[0]  # remove the file extension
-        resize_file = f"{resize_file}-resize.webp"  # append to file name
+        resize_file = f"{config_i["id"]}-resize.webp"  # append to file name
         config_i["resize-file"] = resize_file
         img.save(os.path.join(HTML_DIR, ASSETS_DIR, resize_file))
 
@@ -162,7 +167,7 @@ def add_flag_pole(config):
     """
     for config_i in config:
         # file name of the flag with pole
-        pole_file = f"{config_i['file'].split('.')[0]}-pole.webp"
+        pole_file = f"{config_i['id']}-pole.webp"
         config_i["pole-file"] = pole_file
 
         # use the resized flag
@@ -218,7 +223,7 @@ def write_map_js(config):
 
         # for each flag, add a pop up
         for config_i in config:
-            js_var = config_i["file"].split(".")[0]
+            js_var = config_i["id"]
             flag_file = config_i["pole-file"]
             file.write(f"const {js_var} = L.Icon.extend(")
             file.write("{\n")
@@ -241,7 +246,9 @@ def write_map_js(config):
             file.write("  .bindPopup(\n    '")
             file.write('<div class="leaflet-custom-container">')
             file.write("<strong>")
+            file.write(f"<a href=#{config_i['id']}>")
             file.write(add_escape(config_i["title"]))
+            file.write("</a>")
             file.write("</strong>")
             file.write('<p class="leaflet-custom-caption">')
             file.write(add_escape(config_i["text"]))
@@ -289,8 +296,9 @@ def write_index(config):
         # html code for displaying this flag
         html = (
             f"<figure>\n"
-            f'<img src="{os.path.join(ASSETS_DIR, config_i["resize-file"])}"> '
-            "\n"
+            f"<img id={config_i['id']} "
+            f'src="{os.path.join(ASSETS_DIR, config_i["resize-file"])}">'
+            f"\n"
             f"<figcaption>\n"
             f"<strong>{config_i['title']}</strong>\n"
             f"<p class='caption'>{config_i['text']}</p>\n"
