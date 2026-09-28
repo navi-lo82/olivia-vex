@@ -259,6 +259,14 @@ def write_map_js(config):
             file.write("</div>")
             file.write("'\n  ).addTo(map);\n\n")
 
+            # javascript for linking the figure title back to the Leaflet map
+            # with the corresponding coordinates
+            file.write(f'document.getElementById("{config_i["id"]}-title")')
+            file.write('.onclick ')
+            file.write('= function() {')
+            file.write(f'map.setView({config_i['coordinates']},map.getZoom());')
+            file.write('};\n\n')
+
 
 def add_escape(str):
     return str.replace("'", "\\'").replace('"', '\\"')
@@ -299,10 +307,11 @@ def write_index(config):
             f"<img id={config_i['id']} "
             f'src="{os.path.join(ASSETS_DIR, config_i["resize-file"])}">'
             f"\n"
-            f"<figcaption>\n"
-            f"<strong>{config_i['title']}</strong>\n"
-            f"<p class='caption'>{config_i['text']}</p>\n"
-            f"<p class='author'>{config_i['author']}</p>\n"
+            f'<figcaption>\n'
+            f'<a class="figure-title" id="{config_i["id"]}-title" href="#">'
+            f'{config_i['title']}</a>\n'
+            f'<p class="caption">{config_i['text']}</p>\n'
+            f'<p class="author">{config_i['author']}</p>\n'
             "</figcaption>\n</figure>\n"
         )
         html_dict[type].append(html)
