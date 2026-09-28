@@ -303,10 +303,13 @@ def write_index(config):
         for html in html_list:
             container.append(bs4.BeautifulSoup(html, "html.parser"))
 
-    # remove un-used flag types
+    # remove un-used flag types and links to them
     for flag_type_id in flag_types_id:
         if flag_type_id not in html_dict:
             soup.find(id=flag_type_id).decompose()
+            # remove all links
+            for i in soup.find_all("a", href=f"#{flag_type_id}"):
+                i.decompose()
 
     # required to remove trailing slashes
     html5_strict = bs4.formatter.HTMLFormatter(void_element_close_prefix=None)

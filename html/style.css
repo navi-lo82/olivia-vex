@@ -28,6 +28,17 @@ h3 {
   font-style: italic;
 }
 
+.large-local-link {
+  display: block;
+  padding: 10px;
+  font-size: 20px;
+}
+
+.local-link {
+  display: block;
+  margin-bottom: 20px;
+}
+
 .grid {
   background-color: #FF95CD;
   border-radius: 14px;
