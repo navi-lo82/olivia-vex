@@ -262,10 +262,11 @@ def flag_type_to_id(flag):
 
 
 def write_index(config):
-    """Auto generate the `GALLERY_JS_FILE` file
+    """Auto generate the `index.html` file
 
-    Auto generate the `GALLERY_JS_FILE` file which inserts html code for
-    displaying flags in `index.html`
+    Auto generate the `index.html` file for displaying the Leaflet map and the
+    gallery of flags. This function reads the `index_template.html` file and
+    modifies it. The resulting `index.html` is saved at `HTML_DIR`
 
     Requires the function `resize_images(config)` to be run beforehand
 
@@ -320,7 +321,7 @@ def write_index(config):
     html = soup.decode(formatter=html5_strict)
 
     with open(
-        os.path.join("html", "index.html"), "w", encoding="utf-8"
+        os.path.join(HTML_DIR, "index.html"), "w", encoding="utf-8"
     ) as file:
         file.write(html)
 
