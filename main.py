@@ -247,6 +247,7 @@ def write_map_js(config):
             file.write("  .bindPopup(\n    '")
             file.write('<div class="leaflet-custom-container">')
             file.write(f"<a href=#{config_i['id']} ")
+            file.write('onclick="exitFullscreenFromLeaflet()"')
             file.write('class="leaflet-custom-title">')
             file.write(add_escape(config_i["title"]))
             file.write(
