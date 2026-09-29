@@ -245,11 +245,10 @@ def write_map_js(config):
             file.write("() })\n")
             file.write("  .bindPopup(\n    '")
             file.write('<div class="leaflet-custom-container">')
-            file.write("<strong>")
-            file.write(f"<a href=#{config_i['id']}>")
+            file.write(f'<a href=#{config_i['id']} ')
+            file.write('class="leaflet-custom-title">')
             file.write(add_escape(config_i["title"]))
             file.write("</a>")
-            file.write("</strong>")
             file.write('<p class="leaflet-custom-caption">')
             file.write(add_escape(config_i["text"]))
             file.write("</p>")
@@ -308,7 +307,7 @@ def write_index(config):
             f'src="{os.path.join(ASSETS_DIR, config_i["resize-file"])}">'
             f"\n"
             f'<figcaption>\n'
-            f'<a class="figure-title" id="{config_i["id"]}-title" href="#">'
+            f'<a class="figure-title" id="{config_i["id"]}-title" href="#" data-tooltip="View in Gallery">'
             f'{config_i['title']}</a>\n'
             f'<p class="caption">{config_i['text']}</p>\n'
             f'<p class="author">{config_i['author']}</p>\n'

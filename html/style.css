@@ -9,6 +9,32 @@
   font-family: "Inter", "Open Sans", sans-serif;
 }
 
+.leaflet-custom-container .leaflet-custom-title {
+  font-weight: bold;
+  position: relative;
+}
+
+.leaflet-custom-container .leaflet-custom-title::after {
+  content: "Show in Gallery";
+  position: absolute;
+  bottom: -150%;
+  left: 0%;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.leaflet-custom-container .leaflet-custom-title:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
 .leaflet-custom-container .leaflet-custom-author {
   font-weight: bold;
 }
@@ -103,6 +129,28 @@ p {
   font-weight: bold;
   font-size: 20px;
   font-family: "Inter", "Open Sans", sans-serif;
+  position: relative;
+}
+
+.grid figcaption .figure-title::after {
+  content: "Show in Map";
+  position: absolute;
+  bottom: 125%;
+  left: 0%;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.grid figcaption .figure-title:hover::after {
+  opacity: 1;
+  visibility: visible;
 }
 
 .grid figcaption .caption {
