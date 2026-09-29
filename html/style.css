@@ -264,3 +264,11 @@ footer {
     width: 100%;
   }
 }
+
+.mobile-hint {
+  display: none;
+}
+
+.is-mobile .mobile-hint {
+  display: inline;
+}
