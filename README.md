@@ -1,7 +1,5 @@
 # Olivia Monroe's Vexillology
 
-Prototype fan project
-
 A pin-map of Olimpian flags on the world map. This code generates `.html` files,
 `.js` files and assets for the website to display the map of flags as well as
 a gallery.
@@ -31,7 +29,7 @@ source venv/bin/activate
 python main.py
 ```
 
-This will generate the code and assets in `/html`
+This will generate the code and assets in `docs/`
 
 ## How to view
 
@@ -41,7 +39,19 @@ When testing, run a `http` server and access the website through that
 python -m http.server 8000
 ```
 
-and visit `http://localhost:8000/html/` in a browser
+and visit `http://localhost:8000/docs/` in a browser
+
+## GitHub Pages
+
+The website is hosted using GitHub pages at
+https://navi-lo82.github.io/olivia-vex/
+
+In terms of workflow, all generated files and assets shall be not included in
+the `main` branch. Instead, they should be in the `build` branch which GitHub
+pages will read from.
+
+The `build` branch is only for hosting the website and should not be used for
+development as commits may be forcefully pushed.
 
 ## Other information
 
