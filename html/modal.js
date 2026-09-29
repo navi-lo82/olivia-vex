@@ -10,8 +10,10 @@ function setModal() {
 
   // for each image, make it clickable and activate the modal
   for (let i = 0; i < figures.length; i++) {
-    let img = figures[i].getElementsByTagName("img")[0]
-    let caption = figures[i].getElementsByClassName("figure-title")[0].innerHTML;
+    let img = figures[i].getElementsByTagName("img")[0];
+    let caption = figures[i].getElementsByClassName("figure-title")[0];
+    // use first child to remove mobile hints
+    caption = caption.firstChild.textContent;
     img.onclick = function () {
       modal.style.display = "block";
       modalImg.src = this.src;
