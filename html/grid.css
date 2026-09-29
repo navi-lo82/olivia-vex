@@ -1,0 +1,98 @@
+/* CSS for display a type of flags */
+
+.grid {
+  background-color: #FF95CD;
+  border-radius: 14px;
+  column-count: 3;
+  column-gap: 20px;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Dynamically change number of columns */
+@media screen and (max-width: 1000px) {
+  .grid {
+    column-count: 2;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .grid {
+    column-count: 1;
+  }
+}
+
+.grid figure {
+  display: block;
+  width: 100%;
+  margin: 0 0 20px 0;
+  break-inside: avoid;
+  box-sizing: border-box;
+
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.grid img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.grid figcaption {
+  padding: 15px;
+}
+
+.grid figcaption .figure-title {
+  font-weight: bold;
+  font-size: 20px;
+  font-family: "Inter", "Open Sans", sans-serif;
+  position: relative;
+}
+
+.grid figcaption .caption {
+  font-family: "Inter", "Open Sans", sans-serif;
+}
+
+.grid figcaption .author {
+  font-weight: bold;
+  font-family: "Raleway", sans-serif;
+}
+
+/* For the tooltip when hovering over the title*/
+
+.grid figcaption .figure-title::after {
+  content: "Show in Map";
+  position: absolute;
+  bottom: 125%;
+  left: 0%;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.grid figcaption .figure-title:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* For styling the image when hover over it */
+
+.grid img {
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.grid img:hover {
+  opacity: 0.7;
+}

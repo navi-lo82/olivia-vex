@@ -91,6 +91,7 @@ def read_config():
             config_i["id"] = config_i["file"].split(".")[0]
         return config
 
+
 def add_international_cood(config, rng):
     """Add random coordinate for international flags
 
@@ -147,7 +148,7 @@ def resize_images(config):
         resize_height = int(img.height * scale)
         img = img.resize((RESIZE_WIDTH, resize_height), PIL.Image.LANCZOS)
 
-        resize_file = f"{config_i["id"]}-resize.webp"  # append to file name
+        resize_file = f"{config_i['id']}-resize.webp"  # append to file name
         config_i["resize-file"] = resize_file
         img.save(os.path.join(HTML_DIR, ASSETS_DIR, resize_file))
 
@@ -245,10 +246,12 @@ def write_map_js(config):
             file.write("() })\n")
             file.write("  .bindPopup(\n    '")
             file.write('<div class="leaflet-custom-container">')
-            file.write(f'<a href=#{config_i['id']} ')
+            file.write(f"<a href=#{config_i['id']} ")
             file.write('class="leaflet-custom-title">')
             file.write(add_escape(config_i["title"]))
-            file.write('<span class="mobile-hint">&nbsp;&#x229E;&#x2197;</span>')
+            file.write(
+                '<span class="mobile-hint">&nbsp;&#x229E;&#x2197;</span>'
+            )
             file.write("</a>")
             file.write('<p class="leaflet-custom-caption">')
             file.write(add_escape(config_i["text"]))
@@ -262,10 +265,10 @@ def write_map_js(config):
             # javascript for linking the figure title back to the Leaflet map
             # with the corresponding coordinates
             file.write(f'document.getElementById("{config_i["id"]}-title")')
-            file.write('.onclick ')
-            file.write('= function() {')
-            file.write(f'map.setView({config_i['coordinates']},map.getZoom());')
-            file.write('};\n\n')
+            file.write(".onclick ")
+            file.write("= function() {")
+            file.write(f"map.setView({config_i['coordinates']},map.getZoom());")
+            file.write("};\n\n")
 
 
 def add_escape(str):
@@ -307,13 +310,13 @@ def write_index(config):
             f"<img id={config_i['id']} "
             f'src="{os.path.join(ASSETS_DIR, config_i["resize-file"])}">'
             f"\n"
-            f'<figcaption>\n'
+            f"<figcaption>\n"
             f'<a class="figure-title" id="{config_i["id"]}-title" href="#">'
-            f'{config_i['title']}'
+            f"{config_i['title']}"
             '<span class="mobile-hint">&nbsp;&#x1F4CD;&#x2197;</span>'
-            '</a>\n'
-            f'<p class="caption">{config_i['text']}</p>\n'
-            f'<p class="author">{config_i['author']}</p>\n'
+            "</a>\n"
+            f'<p class="caption">{config_i["text"]}</p>\n'
+            f'<p class="author">{config_i["author"]}</p>\n'
             "</figcaption>\n</figure>\n"
         )
         html_dict[type].append(html)
