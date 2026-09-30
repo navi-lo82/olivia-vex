@@ -56,3 +56,4 @@ development as commits may be forcefully pushed.
 ## Other information
 
 [Kissimmee's boundary](https://kissimmee-gis-web-1-1-kissgis.hub.arcgis.com/)
+[Favicon](https://favicon.io/emoji-favicons/sparkles/)
