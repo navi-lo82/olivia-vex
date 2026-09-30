@@ -85,6 +85,11 @@
   visibility: visible;
 }
 
+/* For mobile, do not show tooltip */
+.is-mobile .grid figcaption .figure-title::after {
+  display: none;
+}
+
 /* For styling the image when hover over it */
 
 .grid img {

@@ -49,3 +49,7 @@ footer {
 .is-mobile .mobile-hint {
   display: inline;
 }
+
+.is-mobile .desktop-hint {
+  display: none;
+}

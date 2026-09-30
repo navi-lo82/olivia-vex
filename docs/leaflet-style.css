@@ -20,6 +20,18 @@
   font-weight: bold;
 }
 
+/* Highlight flag when hovering */
+
+.leaflet-marker-icon:hover {
+  opacity: 0.7;
+}
+
+/* For mobile, do not highlight flag*/
+
+.is-mobile .leaflet-marker-icon:hover {
+  opacity: 1;
+}
+
 /* This is for the tool tip when hovering over title*/
 
 .leaflet-custom-container .leaflet-custom-title::after {
@@ -43,6 +55,8 @@
   visibility: visible;
 }
 
-.leaflet-marker-icon:hover {
-  opacity: 0.7;
+/* For mobile, do not show tool tip */
+
+.is-mobile .leaflet-custom-container .leaflet-custom-title::after {
+  display: none;
 }
