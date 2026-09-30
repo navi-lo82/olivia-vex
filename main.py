@@ -220,7 +220,9 @@ def write_map_js(config):
         )
         file.write("}).addTo(map);\n\n")
 
-        file.write("map.addControl(new L.Control.FullScreen());\n")
+        file.write("map.addControl(new L.Control.FullScreen());\n\n")
+
+        file.write("function setUpMap() {\n\n")
 
         # for each flag, add a pop up
         for config_i in config:
@@ -270,6 +272,9 @@ def write_map_js(config):
             file.write("= function() {")
             file.write(f"map.setView({config_i['coordinates']},map.getZoom());")
             file.write("};\n\n")
+
+        file.write("}\n")
+        file.write("setUpMap();\n")
 
 
 def add_escape(str):
