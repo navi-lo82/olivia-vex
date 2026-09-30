@@ -1,7 +1,6 @@
 /* CSS for display a type of flags */
 
 .grid {
-  background-color: #FF95CD;
   border-radius: 14px;
   column-count: 3;
   column-gap: 20px;
@@ -49,12 +48,12 @@
 .grid figcaption .figure-title {
   font-weight: bold;
   font-size: 20px;
-  font-family: "Inter", "Open Sans", sans-serif;
+  font-family: "Inter";
   position: relative;
 }
 
 .grid figcaption .caption {
-  font-family: "Inter", "Open Sans", sans-serif;
+  font-family: "Inter";
 }
 
 .grid figcaption .author {

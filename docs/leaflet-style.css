@@ -8,16 +8,18 @@
 
 .leaflet-custom-container {
   font-size: 16px;
-  font-family: "Inter", "Open Sans", sans-serif;
+  font-family: "Inter";
 }
 
 .leaflet-custom-container .leaflet-custom-title {
   font-weight: bold;
   position: relative;
+  font-family: "Inter";
 }
 
 .leaflet-custom-container .leaflet-custom-author {
   font-weight: bold;
+  font-family: "Inter";
 }
 
 /* Highlight flag when hovering */
