@@ -317,7 +317,7 @@ def write_index(config):
             f'src="{os.path.join(ASSETS_DIR, config_i["resize-file"])}">'
             f"\n"
             f"<figcaption>\n"
-            f'<a class="figure-title" id="{config_i["id"]}-title" href="#">'
+            f'<a class="figure-title" id="{config_i["id"]}-title" href="#map">'
             f"{config_i['title']}"
             '<span class="mobile-hint">&nbsp;&#x1F4CD;&#x2197;</span>'
             "</a>\n"
