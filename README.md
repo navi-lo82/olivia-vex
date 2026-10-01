@@ -53,7 +53,8 @@ pages will read from.
 The `build` branch is only for hosting the website and should not be used for
 development as commits may be forcefully pushed.
 
-## Other information
+## Other Information and Credits
 
-[Kissimmee's boundary](https://kissimmee-gis-web-1-1-kissgis.hub.arcgis.com/)
-[Favicon](https://favicon.io/emoji-favicons/sparkles/)
+- [Kissimmee's boundary](https://kissimmee-gis-web-1-1-kissgis.hub.arcgis.com/)
+- [Favicon](https://favicon.io/emoji-favicons/sparkles/)
+- [GitHub logo](https://www.flaticon.com/free-icon/github-logo_25231)
