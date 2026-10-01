@@ -61,6 +61,11 @@
   font-family: "Raleway", sans-serif;
 }
 
+.grid figcaption .notes {
+  font-size: 14px;
+  font-family: "Raleway", sans-serif;
+}
+
 /* For the tooltip when hovering over the title*/
 
 .grid figcaption .figure-title::after {

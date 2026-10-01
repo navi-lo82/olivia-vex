@@ -14,6 +14,8 @@ the following keys:
 - `type`: The type of the flag - "International", "Europe", "North America",
       "South America", "Africa", "Asia" or "Oceania"
 - `coordinates`: The coordinates of the flag if it is not an international flag
+- `notes`: Any notes about the flag such as copyright notices or links to high
+      resolution images
 
 For each international flag, a random coordinate within the shape of
 `INTERNATIONAL_GEOMETRY_FILE` are added
@@ -285,6 +287,18 @@ def flag_type_to_id(flag):
     return flag.lower().replace(" ", "-")
 
 
+def html_note(config_i):
+    if "notes" not in config_i:
+        return ""
+
+    html = (
+        '<p class="notes">'
+        f"{config_i['notes']}"
+        "</p>\n"
+    )
+    return html
+
+
 def write_index(config):
     """Auto generate the `index.html` file
 
@@ -323,6 +337,7 @@ def write_index(config):
             "</a>\n"
             f'<p class="caption">{config_i["text"]}</p>\n'
             f'<p class="author">{config_i["author"]}</p>\n'
+            f'{html_note(config_i)}'
             "</figcaption>\n</figure>\n"
         )
         html_dict[type].append(html)
