@@ -1,4 +1,7 @@
 /* CSS for the Leaflet app and captions when clicking on flag*/
+.custom-map-container {
+  margin-bottom: 20px;
+}
 
 #map {
   width: 100%;
