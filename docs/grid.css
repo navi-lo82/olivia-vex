@@ -29,7 +29,6 @@
   margin: 0 0 20px 0;
   break-inside: avoid;
   box-sizing: border-box;
-
   background: #ffffff;
   border-radius: 10px;
   overflow: hidden;
@@ -68,34 +67,33 @@
 }
 
 /* For the tooltip when hovering over the title*/
+/* Only available for pointers which can hover */
 
-.grid figcaption .figure-title::after {
-  content: "Show in Map";
-  position: absolute;
-  bottom: 125%;
-  left: 0%;
-  background-color: #000000;
-  color: #ffffff;
-  padding: 6px 10px;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
+@media (hover:hover) {
+  .grid figcaption .figure-title::after {
+    content: "Show in Map";
+    position: absolute;
+    bottom: 125%;
+    left: 0%;
+    background-color: #000000;
+    color: #ffffff;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .grid figcaption .figure-title:hover::after {
+    opacity: 1;
+    visibility: visible;
+  }
 }
 
-.grid figcaption .figure-title:hover::after {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* For mobile, do not show tooltip */
-.is-mobile .grid figcaption .figure-title::after {
-  display: none;
-}
-
-/* For styling the image when hover over it */
+/* Highlight the image when hovering over it */
+/* Only available for pointers which can hover */
 
 .grid img {
   border-radius: 5px;
@@ -103,11 +101,8 @@
   transition: 0.3s;
 }
 
-.grid img:hover {
-  opacity: 0.7;
-}
-
-/* For mobile, leave the image as it */
-.is-mobile .grid img:hover {
-  opacity: 1;
+@media (hover:hover) {
+  .grid img:hover {
+    opacity: 0.7;
+  }
 }

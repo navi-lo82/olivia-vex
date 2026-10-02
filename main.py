@@ -255,7 +255,7 @@ def write_map_js(config):
             file.write('class="leaflet-custom-title">')
             file.write(add_escape(config_i["title"]))
             file.write(
-                '<span class="mobile-hint">&nbsp;&#x229E;&#x2197;</span>'
+                '<span class="tooltip-hint">&nbsp;&#x229E;&#x2197;</span>'
             )
             file.write("</a>")
             file.write('<p class="leaflet-custom-caption">')
@@ -333,11 +333,11 @@ def write_index(config):
             f"<figcaption>\n"
             f'<a class="figure-title" id="{config_i["id"]}-title" href="#map">'
             f"{config_i['title']}"
-            '<span class="mobile-hint">&nbsp;&#x1F4CD;&#x2197;</span>'
+            '<span class="tooltip-hint">&nbsp;&#x1F4CD;&#x2197;</span>'
             "</a>\n"
             f'<p class="caption">{config_i["text"]}</p>\n'
             f'<p class="author">{config_i["author"]}</p>\n'
-            f'{html_note(config_i)}'
+            f"{html_note(config_i)}"
             "</figcaption>\n</figure>\n"
         )
         html_dict[type].append(html)

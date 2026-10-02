@@ -34,41 +34,36 @@
 
 /* Highlight flag when hovering */
 
-.leaflet-marker-icon:hover {
-  opacity: 0.7;
-}
-
-/* For mobile, do not highlight flag*/
-
-.is-mobile .leaflet-marker-icon:hover {
-  opacity: 1;
+@media (hover:hover) {
+  .leaflet-marker-icon:hover {
+    opacity: 0.7;
+  }
 }
 
 /* This is for the tool tip when hovering over title*/
+/* Only available for pointers which can hover */
 
-.leaflet-custom-container .leaflet-custom-title::after {
-  content: "Show in Gallery";
-  position: absolute;
-  bottom: -150%;
-  left: 0%;
-  background-color: #000000;
-  color: #ffffff;
-  padding: 6px 10px;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
+@media (hover:hover) {
 
-.leaflet-custom-container .leaflet-custom-title:hover::after {
-  opacity: 1;
-  visibility: visible;
-}
+  .leaflet-custom-container .leaflet-custom-title::after {
+    content: "Show in Gallery";
+    position: absolute;
+    bottom: -150%;
+    left: 0%;
+    background-color: #000000;
+    color: #ffffff;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
 
-/* For mobile, do not show tool tip */
+  .leaflet-custom-container .leaflet-custom-title:hover::after {
+    opacity: 1;
+    visibility: visible;
+  }
 
-.is-mobile .leaflet-custom-container .leaflet-custom-title::after {
-  display: none;
 }
