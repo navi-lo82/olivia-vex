@@ -291,11 +291,7 @@ def html_note(config_i):
     if "notes" not in config_i:
         return ""
 
-    html = (
-        '<p class="notes">'
-        f"{config_i['notes']}"
-        "</p>\n"
-    )
+    html = f'<p class="notes">{config_i["notes"]}</p>\n'
     return html
 
 
