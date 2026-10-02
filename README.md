@@ -58,3 +58,35 @@ development as commits may be forcefully pushed.
 - [Kissimmee's boundary](https://kissimmee-gis-web-1-1-kissgis.hub.arcgis.com/)
 - [Favicon](https://favicon.io/emoji-favicons/sparkles/)
 - [GitHub logo](https://www.flaticon.com/free-icon/github-logo_25231)
+
+## Contribution
+
+Each Olimpian may submit two flags:
+
+- One *World Organisation / International/ American* Olimpian flag, which will
+  be planted randomly in Kissimmee
+- One *State / Local* Olimpian flag, which you can be plant wherever you want!
+  This could represent where you are from or one for the lols
+
+We would like to ask that you do not use generative AI for your submission. This
+is because the flags may be featured in cons such as VeXpo, which takes a hard
+stance against AI
+
+We will assume your flag may be used freely (eg printing stickers or flags for
+cons, a template for other flag submissions) with credit or attribution (CC-BY
+4.0). If you wish to put a copyright notice for your work instead, please do so
+in the notes section
+
+To submit a flag, make a pull request. Add your flag(s) to `submissions/`
+and append the following information to the end of `config.yaml`:
+
+- `file`: The file name of the flag image in the `submissions/` directory
+- `title`: The title of the flag
+- `author`: The author of the flag
+- `text`: About the flag - try to keep it to one or two paragraphs
+- `type`: The type of the flag - "International", "Europe", "North America",
+      "South America", "Africa", "Asia" or "Oceania"
+- `coordinates`: The coordinates of the flag if it is not an international flag
+      in degrees N and E
+- `notes`: Any notes about the flag such as copyright notices, credits or links
+      to high resolution images
