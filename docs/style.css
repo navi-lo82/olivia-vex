@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 .ballet-pink {
   background-color: #FFCCE7;
 }
@@ -44,7 +48,6 @@ h3 {
 nav {
   display: inline-block;
   padding: 10px;
-  font-size: 20px;
   border-radius: 10px;
   margin-bottom: 20px;
   margin: 20px auto;
@@ -52,9 +55,12 @@ nav {
 
 nav a {
   display: inline-block;
+  font-size: 20px;
   padding: 10px;
   margin-left: 10px;
   margin-right: 10px;
+  text-decoration: none;
+  border-radius: 10px;
 }
 
 @media (hover:hover) {
@@ -64,8 +70,17 @@ nav a {
 }
 
 .local-link {
-  display: block;
-  margin-bottom: 20px;
+  display: inline-block;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+@media (hover:hover) {
+  .local-link:hover {
+    text-decoration: none;
+    background-color: #FE65B6;
+  }
 }
 
 /* Hide tooltip hints if the pointer can hover */
