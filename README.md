@@ -17,8 +17,8 @@ pip install -r requirements.txt
 ## Where to store flags
 
 Submitted flags are to be stored in `submissions/`. Try to keep them about under
-100 kB each. The information for each flag is stored in `config.yaml`. These
-will be processed by the code
+100 kB each. Using the `.webp` format is recommended. The information for each
+flag is stored in `config.yaml`. These will be processed by the code
 
 ## How to run
 
@@ -72,6 +72,9 @@ We would like to ask that you do not use generative AI for your submission. This
 is because the flags may be featured in cons such as VeXpo, which takes a hard
 stance against AI
 
+When providing coordinates of famous places, try to add some randomness to avoid
+submitted flags clumping together
+
 We will assume your flag may be used freely (eg printing stickers or flags for
 cons, a template for other flag submissions) with credit or attribution (CC-BY
 4.0). If you wish to put a copyright notice for your work instead, please do so
@@ -90,3 +93,5 @@ and append the following information to the end of `config.yaml`:
       in degrees N and E
 - `notes`: Any notes about the flag such as copyright notices, credits or links
       to high resolution images
+
+As stated above, try to keep file sizes under 100 kB each.
