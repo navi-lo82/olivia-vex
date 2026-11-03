@@ -45,8 +45,11 @@ from numpy import random
 import yaml
 
 SEED = 69951084179381307589558274648595550906  # for rng
-START_COOD = [28.2956, -81.4039]  # start coordinates for the Leaflet map
-START_ZOOM = 10  # start zoom parameter for the Leaflet map
+START_COOD = [
+    35.0,
+    0.0,
+]  # start coordinates for the Leaflet map
+START_ZOOM = 3  # start zoom parameter for the Leaflet map
 RESIZE_WIDTH = 800  # width of the image asset to resize to
 FLAG_POLE_HEIGHT = (
     1000  # height of the pole in the flag Leaflet image in pixels
