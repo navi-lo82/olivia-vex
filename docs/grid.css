@@ -35,7 +35,7 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
-.grid img {
+.grid .flag {
   width: 100%;
   height: auto;
   display: block;
@@ -96,14 +96,14 @@
 /* Highlight the image when hovering over it */
 /* Only available for pointers which can hover */
 
-.grid img {
+.grid .flag {
   border-radius: 5px;
   cursor: pointer;
   transition: 0.3s;
 }
 
 @media (hover:hover) {
-  .grid img:hover {
+  .grid .flag:hover {
     opacity: 0.7;
   }
 }

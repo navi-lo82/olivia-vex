@@ -72,6 +72,7 @@ FLAG_TYPES = [
     "Africa",
     "Asia",
     "Oceania",
+    "Oceans",
 ]
 
 
@@ -323,7 +324,7 @@ def write_index(config):
         # html code for displaying this flag
         html = (
             f"<figure>\n"
-            f"<img id={config_i['id']} "
+            f'<img id={config_i["id"]} class="flag"'
             f'src="{os.path.join(ASSETS_DIR, config_i["resize-file"])}">'
             f"\n"
             f"<figcaption>\n"
