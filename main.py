@@ -12,7 +12,7 @@ the following keys:
 - `text`: The text of the flag, ensure it is js friendly by using escape
       characters when needed
 - `type`: The type of the flag - "International", "Europe", "North America",
-      "South America", "Africa", "Asia" or "Oceania"
+      "South America", "Africa", "Asia", "Oceania" or "Oceans"
 - `coordinates`: The coordinates of the flag if it is not an international flag
 - `notes`: Any notes about the flag such as copyright notices or links to high
       resolution images

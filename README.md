@@ -88,7 +88,7 @@ and append the following information to the end of `config.yaml`:
 - `author`: The author of the flag
 - `text`: About the flag - try to keep it to one or two paragraphs
 - `type`: The type of the flag - "International", "Europe", "North America",
-      "South America", "Africa", "Asia" or "Oceania"
+      "South America", "Africa", "Asia", "Oceania" or "Oceans"
 - `coordinates`: The coordinates of the flag if it is not an international flag
       in degrees N and E
 - `notes`: Any notes about the flag such as copyright notices, credits or links
