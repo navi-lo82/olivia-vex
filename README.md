@@ -16,9 +16,11 @@ pip install -r requirements.txt
 
 ## Where to store flags
 
-Submitted flags are to be stored in `submissions/`. Try to keep them about under
-100 kB each. Using the `.webp` format is recommended. The information for each
-flag is stored in `config.yaml`. These will be processed by the code
+Submitted flags are to be stored in `submissions/`. Their file names should be
+simple and can be used as JavaScript variable names, ie `-` are not allowed,
+must not start with a number... etc. Try to keep the file sizes about under 100
+kB each. Using the `.webp` format is recommended. The information for each flag
+is stored in `config.yaml`. These will be processed by the code
 
 ## How to run
 
@@ -80,8 +82,9 @@ cons, a template for other flag submissions) with credit or attribution (CC-BY
 4.0). If you wish to put a copyright notice for your work instead, please do so
 in the notes section
 
-To submit a flag, make a pull request. Add your flag(s) to `submissions/`
-and append the following information to the end of `config.yaml`:
+To submit a flag, make a pull request. Add your flag(s) to `submissions/` (see
+section *Where to store flags*) and append the following information to the end
+of `config.yaml`:
 
 - `file`: The file name of the flag image in the `submissions/` directory
 - `title`: The title of the flag
