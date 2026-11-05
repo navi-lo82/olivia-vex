@@ -91,3 +91,11 @@
   type: North America
   text: ""
   coordinates: [39.326106, -76.644709]
+
+- file: oli_flag_Owlblocks.webp
+  title: Banner of the Lienanwang Gongzhu
+  author: Owlblocks
+  type: Asia
+  text: The personal banner of the lady that rules this domain, the 獵男狂公主.
+        Her title was given to her by her subjects; I wonder what it could mean.
+  coordinates: [28.01525, 120.64]
